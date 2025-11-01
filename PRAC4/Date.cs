@@ -48,6 +48,7 @@ namespace PRAC4
                 dates.Add(new Date(day, month, year));
 
             }
+            Console.WriteLine("\nСписок сгенерированных дат:");
             foreach (Date date in dates)
             {
                 Console.WriteLine(date);
@@ -68,18 +69,25 @@ namespace PRAC4
             var selectedDate1 = from d in dates
                                 where d.Year == dateYear
                                 select d;
-            Console.WriteLine("Список дат для заданного года:");
-            foreach (var dateSel in selectedDate1)
-                Console.WriteLine(dateSel);
+            Console.WriteLine("\nСписок дат для заданного года:");
+            if (selectedDate1.Count() != 0)
+                foreach (var dateSel in selectedDate1)
+                    Console.WriteLine(dateSel);
+            else
+                Console.WriteLine("Нет дат для заданного года.");
             Console.WriteLine();
+
 
 
             var selectedDate2 = from d in dates
                                 where d.Month == dateMonth
                                 select d;
             Console.WriteLine("Список дат для заданного месяца:");
-            foreach (var dateSel in selectedDate2)
-                Console.WriteLine(dateSel);
+            if (selectedDate2.Count() != 0)
+                foreach (var dateSel in selectedDate2)
+                    Console.WriteLine(dateSel);
+            else
+                Console.WriteLine("Нет дат для заданного месяца.");
             Console.WriteLine();
 
 
@@ -99,7 +107,10 @@ namespace PRAC4
             var selectedDate5 = (from d in dates
                                  where d.Day == dateDay
                                  select d).FirstOrDefault();
-            Console.WriteLine($"Первая дата для заданного дня: {selectedDate5}");
+            if (selectedDate5 != null)
+                Console.WriteLine($"Первая дата для заданного дня: {selectedDate5}");
+            else
+                Console.WriteLine("Нет даты для заданного дня.");
             Console.WriteLine();
 
             int Choice; // для выбора действия
@@ -107,46 +118,41 @@ namespace PRAC4
 
             do
             {
-                do
-                {
-                    Console.WriteLine("\nВыберите, желаемую операцию:\n");
-                    Console.WriteLine("1. Отсортировать даты по возрастанию\n");
-                    Console.WriteLine("2. Отсортировать даты по убыванию\n");
-                    Console.WriteLine("3. Выйти\n");
-                    string choice = Console.ReadLine();
-                    Manager.TryParseNumber(choice, out Choice);
+                Console.WriteLine("\nВыберите, желаемую операцию:\n");
+                Console.WriteLine("1. Отсортировать даты по возрастанию\n");
+                Console.WriteLine("2. Отсортировать даты по убыванию\n");
+                string choice = Console.ReadLine();
+                Manager.TryParseNumber(choice, out Choice);
 
-                } while (false);
+            } while (false);
 
-                switch (Choice)
-                {
-                    case 1:
-                        var selectedDate6 = from d in dates
-                                            orderby d.Year descending, d.Month descending, d.Day descending
-                                            select d;
+            switch (Choice)
+            {
+                case 1:
+                    var selectedDate6 = from d in dates
+                                        orderby d.Year descending, d.Month descending, d.Day descending
+                                        select d;
 
-                        Console.WriteLine($"Даты по возрастанию: {selectedDate6}");
-                        Console.WriteLine();
+                    Console.WriteLine($"Даты по возрастанию:");
+                    foreach (var date in selectedDate6)
+                        Console.WriteLine(date);
+                    Console.WriteLine();
+                    break;
 
-                        break;
-                    case 2:
-                        var selectedDate7 = from d in dates
-                                            orderby d.Year ascending, d.Month ascending, d.Day ascending
-                                            select d;
-                        Console.WriteLine($"Даты по убыванию: {selectedDate7}");
-                        Console.WriteLine();
-                        break;
+                case 2:
+                    var selectedDate7 = from d in dates
+                                        orderby d.Year ascending, d.Month ascending, d.Day ascending
+                                        select d;
+                    Console.WriteLine($"Даты по убыванию:");
+                    foreach (var date in selectedDate7)
+                        Console.WriteLine(date);
+                    Console.WriteLine();
+                    break;
 
-                    case 3:
-                        Console.WriteLine("До свидания!");
-                        Environment.Exit(0);
-                        break;
-
-                    default:
-                        Console.WriteLine("Invalid choice.\n");
-                        break;
-                }
-            } while (Choice != 3);
+                default:
+                    Console.WriteLine("Invalid choice.\n");
+                    break;
+            }
         }
 
         public static void ExpansionDate(List<Date> dates)
@@ -161,14 +167,19 @@ namespace PRAC4
             //Методы расширения
             var selectedDate = dates.Where(d => d.Year == dateYear);
             Console.WriteLine("Список дат для заданного года:");
-            foreach (var dateSel in selectedDate)
-                Console.WriteLine(dateSel);
+            if (selectedDate.Count() != 0)
+                foreach (var dateSel in selectedDate)
+                    Console.WriteLine(dateSel);
+            else
+                Console.WriteLine("Нет дат для заданного года.");
             Console.WriteLine();
 
             var selectedDate8 = dates.Where(d => d.Month == dateMonth);
             Console.WriteLine("Список дат для заданного месяца:");
-            foreach (var dateSel in selectedDate8)
-                Console.WriteLine(dateSel);
+            if (selectedDate8.Count() != 0)
+                foreach (var dateSel in selectedDate8)
+                    Console.WriteLine(dateSel);
+            else Console.WriteLine("Нет дат для заданного месяца.");
             Console.WriteLine();
 
             var selectedDate9 = dates.Where(d => d.Year > startYear && d.Year < endYear);
@@ -187,7 +198,10 @@ namespace PRAC4
             var selectedDate11 = dates.Where(d => d.Day == dateDay)
               .FirstOrDefault();
             Console.WriteLine("Первая дата для заданного дня:");
-            Console.WriteLine(selectedDate11);
+            if (selectedDate11 == null)
+                Console.WriteLine("Нет даты для заданного дня.");
+            else
+                Console.WriteLine(selectedDate11);
             Console.WriteLine();
 
             int Choice; // для выбора действия
@@ -195,51 +209,43 @@ namespace PRAC4
 
             do
             {
-                do
-                {
-                    Console.WriteLine("\nВыберите, желаемую операцию:\n");
-                    Console.WriteLine("1. Отсортировать даты по возрастанию\n");
-                    Console.WriteLine("2. Отсортировать даты по убыванию\n");
-                    Console.WriteLine("3. Выйти\n");
-                    string choice = Console.ReadLine();
-                    Manager.TryParseNumber(choice, out Choice);
+                Console.WriteLine("\nВыберите, желаемую операцию:\n");
+                Console.WriteLine("1. Отсортировать даты по возрастанию\n");
+                Console.WriteLine("2. Отсортировать даты по убыванию\n");
+                Console.WriteLine("3. Выйти\n");
+                string choice = Console.ReadLine();
+                Manager.TryParseNumber(choice, out Choice);
 
-                } while (false);
+            } while (false);
 
-                switch (Choice)
-                {
-                    case 1:
-                        var selectedDate12 = dates
-                            .OrderBy(d => d.Year)
-                            .ThenBy(d => d.Month)
-                            .ThenBy(d => d.Day);
-                        Console.WriteLine("Список дат по возрастанию:");
-                        foreach (var dateSel in selectedDate12)
-                            Console.WriteLine(dateSel);
-                        Console.WriteLine();
-                        break;
+            switch (Choice)
+            {
+                case 1:
+                    var selectedDate12 = dates
+                        .OrderBy(d => d.Year)
+                        .ThenBy(d => d.Month)
+                        .ThenBy(d => d.Day);
+                    Console.WriteLine("Список дат по возрастанию:");
+                    foreach (var dateSel in selectedDate12)
+                        Console.WriteLine(dateSel);
+                    Console.WriteLine();
+                    break;
 
-                    case 2:
-                        var selectedDate13 = dates
-                            .OrderByDescending(d => d.Year)
-                            .ThenByDescending(d => d.Month)
-                            .ThenByDescending(d => d.Day);
-                        Console.WriteLine("Список дат по убыванию:");
-                        foreach (var dateSel in selectedDate13)
-                            Console.WriteLine(dateSel);
-                        Console.WriteLine();
-                        break;
+                case 2:
+                    var selectedDate13 = dates
+                        .OrderByDescending(d => d.Year)
+                        .ThenByDescending(d => d.Month)
+                        .ThenByDescending(d => d.Day);
+                    Console.WriteLine("Список дат по убыванию:");
+                    foreach (var dateSel in selectedDate13)
+                        Console.WriteLine(dateSel);
+                    Console.WriteLine();
+                    break;
 
-                    case 3:
-                        Console.WriteLine("До свидания!");
-                        Environment.Exit(0);
-                        break;
-
-                    default:
-                        Console.WriteLine("Invalid choice.\n");
-                        break;
-                }
-            } while (Choice != 3);
+                default:
+                    Console.WriteLine("Invalid choice.\n");
+                    break;
+            }
         }
     }
 }
