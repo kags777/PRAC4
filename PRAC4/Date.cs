@@ -15,7 +15,7 @@ namespace PRAC4
 
         public Date(int day, int month, int year)
         {
-            if (year < 1 || year > 3000)
+            if (year < 1600 || year > 2025)
                 throw new ArgumentOutOfRangeException(nameof(year), "Год должен быть в диапазоне 1–3000");
 
             if (month < 1 || month > 12)
@@ -41,7 +41,7 @@ namespace PRAC4
 
             for (int i = 0; i < 20; i++)
             {
-                int year = rand.Next(1, 3001);
+                int year = rand.Next(1600, 2026);
                 int month = rand.Next(1, 13);
                 int day = rand.Next(1, 29); // чтобы не ловить 29/30/31-й в коротких месяцах
 
@@ -59,22 +59,58 @@ namespace PRAC4
         //операторы запросов даты
         public static void RequestDate(List<Date> dates)
         {
-            int dateYear = 2020;
-            int dateMonth = 6;
-            int dateDay = 1;
+            int dateYear;
+            int dateMonth;
+            int dateDay;
+            int startYear;
+            int endYear;
+            string choice;
 
-            int startYear = 2000;
-            int endYear = 2020;
+            do
+            {
+                Console.WriteLine("\nВыберите, год, даты которого хотите вывести:");
+                choice = Console.ReadLine();
+            } while (!Manager.TryParseNumber(choice, out dateYear));
+
+            do
+            {
+                Console.WriteLine("\nВыберите, месяц, даты которого хотите вывести:");
+                choice = Console.ReadLine();
+            } while (!Manager.TryParseNumber(choice, out dateMonth));
+
+            do
+            {
+                Console.WriteLine("\nВыберите, день, даты которого хотите вывести:");
+                choice = Console.ReadLine();
+            } while (!Manager.TryParseNumber(choice, out dateDay));
+
+            do
+            {
+                Console.WriteLine("\nВыберите, диапазон годов, числа которых, хотите вывести.\nГод начала диапазона:");
+                choice = Console.ReadLine();
+            } while (!Manager.TryParseNumber(choice, out startYear));
+
+            do
+            {
+                Console.WriteLine("\nВыберите, диапазон годов, числа которых, хотите вывести.\nГод конца диапазона:");
+                choice = Console.ReadLine();
+            } while (!Manager.TryParseNumber(choice, out endYear));
+
+            Console.WriteLine("-------------------------------------------------------------");
+
 
             var selectedDate1 = from d in dates
                                 where d.Year == dateYear
                                 select d;
-            Console.WriteLine("\nСписок дат для заданного года:");
+
             if (selectedDate1.Count() != 0)
+            {
+                Console.WriteLine($"\nСписок дат для {dateYear} года:");
                 foreach (var dateSel in selectedDate1)
                     Console.WriteLine(dateSel);
+            }
             else
-                Console.WriteLine("Нет дат для заданного года.");
+                Console.WriteLine($"Нет дат для {dateYear} года.");
             Console.WriteLine();
 
 
@@ -82,19 +118,22 @@ namespace PRAC4
             var selectedDate2 = from d in dates
                                 where d.Month == dateMonth
                                 select d;
-            Console.WriteLine("Список дат для заданного месяца:");
+            
             if (selectedDate2.Count() != 0)
+            {
+                Console.WriteLine($"Список дат для {dateMonth} месяца:");
                 foreach (var dateSel in selectedDate2)
                     Console.WriteLine(dateSel);
+            }
             else
-                Console.WriteLine("Нет дат для заданного месяца.");
+                Console.WriteLine($"Нет дат для {dateMonth} месяца.");
             Console.WriteLine();
 
 
             var selectedDate3 = (from d in dates
                                  where d.Year >= startYear && d.Year <= endYear
                                  select d).Count();
-            Console.WriteLine($"Количество дат в диапазоне от 2000 до 2025 года : {selectedDate3}");
+            Console.WriteLine($"Количество дат в диапазоне от {startYear} до {endYear} годов : {selectedDate3}");
             Console.WriteLine();
 
             var maxDate = (from d in dates
@@ -108,9 +147,9 @@ namespace PRAC4
                                  where d.Day == dateDay
                                  select d).FirstOrDefault();
             if (selectedDate5 != null)
-                Console.WriteLine($"Первая дата для заданного дня: {selectedDate5}");
+                Console.WriteLine($"Первая дата для {dateDay} дня: {selectedDate5}");
             else
-                Console.WriteLine("Нет даты для заданного дня.");
+                Console.WriteLine($"Нет даты для {dateDay} дня.");
             Console.WriteLine();
 
             int Choice; // для выбора действия
@@ -121,7 +160,7 @@ namespace PRAC4
                 Console.WriteLine("\nВыберите, желаемую операцию:\n");
                 Console.WriteLine("1. Отсортировать даты по возрастанию\n");
                 Console.WriteLine("2. Отсортировать даты по убыванию\n");
-                string choice = Console.ReadLine();
+                choice = Console.ReadLine();
                 Manager.TryParseNumber(choice, out Choice);
 
             } while (false);
@@ -157,33 +196,65 @@ namespace PRAC4
 
         public static void ExpansionDate(List<Date> dates)
         {
-            int dateYear = 2020;
-            int dateMonth = 6;
-            int dateDay = 1;
+            int dateYear;
+            int dateMonth;
+            int dateDay;
+            int startYear;
+            int endYear;
+            string choice;
 
-            int startYear = 2000;
-            int endYear = 2020;
+            do
+            {
+                Console.WriteLine("\nВыберите, год, даты которого хотите вывести:");
+                choice = Console.ReadLine();
+            } while (!Manager.TryParseNumber(choice, out dateYear));
+
+            do
+            {
+                Console.WriteLine("\nВыберите, месяц, даты которого хотите вывести:");
+                choice = Console.ReadLine();
+            } while (!Manager.TryParseNumber(choice, out dateMonth));
+
+            do
+            {
+                Console.WriteLine("\nВыберите, день, даты которого хотите вывести:");
+                choice = Console.ReadLine();
+            } while (!Manager.TryParseNumber(choice, out dateDay));
+
+            do
+            {
+                Console.WriteLine("\nВыберите, диапазон годов, числа которых, хотите вывести.\nГод начала диапазона:");
+                choice = Console.ReadLine();
+            } while (!Manager.TryParseNumber(choice, out startYear));
+
+            do
+            {
+                Console.WriteLine("\nВыберите, диапазон годов, числа которых, хотите вывести.\nГод конца диапазона:");
+                choice = Console.ReadLine();
+            } while (!Manager.TryParseNumber(choice, out endYear));
+
+            Console.WriteLine("-------------------------------------------------------------");
 
             //Методы расширения
             var selectedDate = dates.Where(d => d.Year == dateYear);
-            Console.WriteLine("Список дат для заданного года:");
+            Console.WriteLine($"Список дат для {dateYear} года:");
             if (selectedDate.Count() != 0)
                 foreach (var dateSel in selectedDate)
                     Console.WriteLine(dateSel);
             else
-                Console.WriteLine("Нет дат для заданного года.");
+                Console.WriteLine($"Нет дат для {dateYear} года.");
             Console.WriteLine();
 
             var selectedDate8 = dates.Where(d => d.Month == dateMonth);
-            Console.WriteLine("Список дат для заданного месяца:");
+            Console.WriteLine($"Список дат для {dateMonth} месяца:");
             if (selectedDate8.Count() != 0)
                 foreach (var dateSel in selectedDate8)
                     Console.WriteLine(dateSel);
-            else Console.WriteLine("Нет дат для заданного месяца.");
+            else Console.WriteLine($"Нет дат для {dateMonth} месяца.");
             Console.WriteLine();
 
             var selectedDate9 = dates.Where(d => d.Year > startYear && d.Year < endYear);
-            Console.WriteLine("Количество дат в определенном диапазоне:");
+            Console.WriteLine($"Количество дат в диапазоне от {startYear} до {endYear} годов:");
             Console.WriteLine(selectedDate9.Count());
             Console.WriteLine();
 
@@ -197,9 +268,9 @@ namespace PRAC4
 
             var selectedDate11 = dates.Where(d => d.Day == dateDay)
               .FirstOrDefault();
-            Console.WriteLine("Первая дата для заданного дня:");
+            Console.WriteLine($"Первая дата для {dateDay} дня:");
             if (selectedDate11 == null)
-                Console.WriteLine("Нет даты для заданного дня.");
+                Console.WriteLine($"Нет даты для {dateDay} дня.");
             else
                 Console.WriteLine(selectedDate11);
             Console.WriteLine();
@@ -213,7 +284,7 @@ namespace PRAC4
                 Console.WriteLine("1. Отсортировать даты по возрастанию\n");
                 Console.WriteLine("2. Отсортировать даты по убыванию\n");
                 Console.WriteLine("3. Выйти\n");
-                string choice = Console.ReadLine();
+                choice = Console.ReadLine();
                 Manager.TryParseNumber(choice, out Choice);
 
             } while (false);

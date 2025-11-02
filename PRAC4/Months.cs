@@ -30,10 +30,10 @@ namespace PRAC4
                              select m;
 
         var selectedMonth4 = from m in month
-                             where m.Length == 4 && m.Contains("u")
+                             where m.Length >= 4 && m.Contains("u")
                              select m;
 
-        Console.WriteLine("Месяцы, с длиной строки названия пять символов:");
+        Console.WriteLine("\nМесяцы, с длиной строки названия пять символов:");
         foreach (string monthSel in selectedMonth1)
             Console.WriteLine(monthSel);
         Console.WriteLine();
@@ -45,19 +45,19 @@ namespace PRAC4
         foreach (string monthSel in selectedMonth3)
             Console.WriteLine(monthSel);
         Console.WriteLine();
-        Console.WriteLine("Месяцы с длиной названия 4 символа и содержащие в названии букву u:");
+        Console.WriteLine("Месяцы с длиной названия не менее 4 символов и содержащие в названии букву u:");
         foreach (string monthSel in selectedMonth4)
             Console.WriteLine(monthSel);
-        Console.WriteLine();
         }
 
         public static void Expansion()
         {
             string[] month = { "January","February","March","April","May","June", "July","August",
             "September","October","November","December"};
+
             //Методы расширения
             var selectedMonth = month.Where(m => m.Length == 5);
-            Console.WriteLine("Месяцы, с длиной строки названия пять символов:");
+            Console.WriteLine("\nМесяцы, с длиной строки названия пять символов:");
             foreach (string monthSel in selectedMonth)
                 Console.WriteLine(monthSel);
             Console.WriteLine();
@@ -75,8 +75,8 @@ namespace PRAC4
                 Console.WriteLine(monthSel);
             Console.WriteLine();
 
-            var selectedMonth8 = month.Where(p => p.Length == 4 && p.Contains("u"));
-            Console.WriteLine("Месяцы с длиной названия 4 символа и содержащие в названии букву u:");
+            var selectedMonth8 = month.Where(p => p.Length >= 4 && p.Contains("u"));
+            Console.WriteLine("Месяцы с длиной названия не менее 4 символов и содержащие в названии букву u:");
             foreach (string monthSel in selectedMonth8)
                 Console.WriteLine(monthSel);
         }
