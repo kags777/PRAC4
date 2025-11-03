@@ -169,7 +169,7 @@ namespace PRAC4
             {
                 case 1:
                     var selectedDate6 = from d in dates
-                                        orderby d.Year descending, d.Month descending, d.Day descending
+                                        orderby d.Year ascending, d.Month ascending, d.Day ascending
                                         select d;
 
                     Console.WriteLine($"Даты по возрастанию:");
@@ -180,7 +180,7 @@ namespace PRAC4
 
                 case 2:
                     var selectedDate7 = from d in dates
-                                        orderby d.Year ascending, d.Month ascending, d.Day ascending
+                                        orderby d.Year descending, d.Month descending, d.Day descending
                                         select d;
                     Console.WriteLine($"Даты по убыванию:");
                     foreach (var date in selectedDate7)
@@ -320,6 +320,3 @@ namespace PRAC4
         }
     }
 }
-
-
-
